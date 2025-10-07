@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,10 @@ public class Conference {
     @OneToMany(mappedBy = "_conference")
     private List<Division> _divisions;
 
-    public List<String> getDivisions() {
-        return this.get_divisions().stream().map(Division::getName).toList();
+    public List<Division> getDivisions() {
+        return this.get_divisions().stream().map(d -> {
+            d.get_conference().set_divisions(new ArrayList<>());
+            return d;
+        }).toList();
     }
 }
