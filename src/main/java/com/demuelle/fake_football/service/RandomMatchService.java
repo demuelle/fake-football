@@ -88,16 +88,16 @@ public class RandomMatchService {
         teamRepository.save(new Team("Carolina", "Panthers", 75, 95, 4, nfcSouth));
         teamRepository.save(new Team("New Orleans", "Saints", 66, 121, 4, nfcSouth));
 
-        Match match = Match.builder()
-                .homeTeam(eagles)
-                .visitingTeam(cowboys)
-                .homeTeamScore(24.)
-                .visitingTeamScore(20.)
-                .actualOrPredicted("A")
-                .week(1)
-                .kickoffDateTime(LocalDateTime.of(2025, 9, 4, 19, 20))
-                .build();
-        matchRepository.save(match);
+//        Match match = Match.builder()
+//                .homeTeam(eagles)
+//                .visitingTeam(cowboys)
+//                .homeTeamScore(24.)
+//                .visitingTeamScore(20.)
+//                .actualOrPredicted("A")
+//                .week(1)
+//                .kickoffDateTime(LocalDateTime.of(2025, 9, 4, 19, 20))
+//                .build();
+//        matchRepository.save(match);
 //        List<Team> teamList = retrieveAllTeams();
 //        for (Team t: teamList) System.out.println(t);
 
@@ -249,7 +249,7 @@ public class RandomMatchService {
     }
 
     private static InputActualMatch parseMatchFromStringList(List<String> matchStrings) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
         return InputActualMatch.builder()
                 .visitingTeamNickname(matchStrings.get(0))
                 .homeTeamNickname(matchStrings.get(1))

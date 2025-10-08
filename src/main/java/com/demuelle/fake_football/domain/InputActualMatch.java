@@ -22,6 +22,6 @@ public class InputActualMatch {
     private Double homeTeamScore;
     private Double visitingTeamScore;
     private Integer week;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd H:mm")
     private LocalDateTime kickoffDateTime;
 }
