@@ -22,14 +22,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
-    @Autowired
-    private DivisionRepository divisionRepository;
+    private final DivisionRepository divisionRepository;
+    private final ConferenceRepository conferenceRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    private ConferenceRepository conferenceRepository;
-
-    @Autowired
-    private TeamRepository teamRepository;
+    public TeamService(DivisionRepository divisionRepository, ConferenceRepository conferenceRepository, TeamRepository teamRepository) {
+        this.divisionRepository = divisionRepository;
+        this.conferenceRepository = conferenceRepository;
+        this.teamRepository = teamRepository;
+    }
 
     public Conference getConference(String name) {
         return conferenceRepository.findByNameIgnoreCase(name);

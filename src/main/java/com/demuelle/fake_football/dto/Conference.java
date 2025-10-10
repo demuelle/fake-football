@@ -12,6 +12,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @JsonIgnoreProperties({"_divisions"})
 public class Conference {
     @Id

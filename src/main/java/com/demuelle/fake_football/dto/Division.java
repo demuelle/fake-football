@@ -2,10 +2,7 @@ package com.demuelle.fake_football.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @JsonIgnoreProperties({"_conference"})
 public class Division {
     @Id
@@ -25,6 +23,9 @@ public class Division {
     @JoinColumn(name = "conference_id")
     private Conference _conference;
 
+    @OneToMany(mappedBy = "_division")
+    private List<Team> teams;
+
     public Division(String name, Conference conference) {
         this.name = name;
         this._conference = conference;
@@ -34,6 +35,4 @@ public class Division {
         return this.get_conference().getName();
     }
 
-    @OneToMany(mappedBy = "_division")
-    private List<Team> teams;
 }
