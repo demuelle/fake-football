@@ -2,10 +2,7 @@ package com.demuelle.fake_football.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,7 @@ public class Conference {
     }
 
     @OneToMany(mappedBy = "_conference")
+    @Getter(AccessLevel.PRIVATE)
     private List<Division> _divisions;
 
     public List<Division> getDivisions() {

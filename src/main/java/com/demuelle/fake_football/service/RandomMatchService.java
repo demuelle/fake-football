@@ -10,6 +10,7 @@ import com.demuelle.fake_football.repository.ConferenceRepository;
 import com.demuelle.fake_football.repository.DivisionRepository;
 import com.demuelle.fake_football.repository.MatchRepository;
 import com.demuelle.fake_football.repository.TeamRepository;
+import com.demuelle.fake_football.utils.MatchUtils;
 import com.demuelle.fake_football.utils.ParseUtils;
 import com.demuelle.fake_football.viewmodel.MatchViewModel;
 import com.demuelle.fake_football.viewmodel.RandomMatchesViewModel;
@@ -39,7 +40,7 @@ public class RandomMatchService {
         this.divisionRepository = divisionRepository;
         this.matchRepository = matchRepository;
         
-        seedData();
+//        seedData();
     }
 
     public void seedData() {
@@ -71,9 +72,9 @@ public class RandomMatchService {
         teamRepository.save(new Team("Jacksonville", "Jaguars", 96, 72, 4, afcSouth));
         teamRepository.save(new Team("Houston", "Texans", 64, 51, 4, afcSouth));
         teamRepository.save(new Team("Tennessee", "Titans", 51, 120, 4, afcSouth));
-        Team eagles = teamRepository.save(new Team("Philadelphia", "Eagles", 108, 88, 4, nfcEast));
+        teamRepository.save(new Team("Philadelphia", "Eagles", 108, 88, 4, nfcEast));
         teamRepository.save(new Team("Washington", "Commanders", 107, 91, 4, nfcEast));
-        Team cowboys = teamRepository.save(new Team("Dallas", "Cowboys", 114, 132, 4, nfcEast));
+        teamRepository.save(new Team("Dallas", "Cowboys", 114, 132, 4, nfcEast));
         teamRepository.save(new Team("New York", "Giants", 73, 101, 4, nfcEast));
         teamRepository.save(new Team("San Francisco", "49ers", 80, 75, 4, nfcWest));
         teamRepository.save(new Team("Seattle", "Seahawks", 111, 67, 4, nfcWest));
@@ -223,22 +224,7 @@ public class RandomMatchService {
                 .kickoffDateTime(inputMatch.getKickoffDateTime())
                 .build();
         matchRepository.save(match);
-        return convertMatchToViewModel(match);
-    }
-
-    private static MatchViewModel convertMatchToViewModel(Match match) {
-        return MatchViewModel.builder()
-                .id(match.getId())
-                .rolls(match.getRolls())
-                .homeTeam(match.getHomeTeam().getFullName())
-                .visitingTeam(match.getVisitingTeam().getFullName())
-                .neutralSite(match.isNeutralSite())
-                .homeTeamScore(match.getHomeTeamScore())
-                .visitingTeamScore(match.getVisitingTeamScore())
-                .actualOrPredicted(match.getActualOrPredicted())
-                .week(match.getWeek())
-                .kickoffDateTime(match.getKickoffDateTime())
-                .build();
+        return MatchUtils.convertMatchToViewModel(match);
     }
 
     public int bulkCreateMatches(List<List<String>> matches) {

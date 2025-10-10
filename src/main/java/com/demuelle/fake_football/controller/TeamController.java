@@ -2,6 +2,9 @@ package com.demuelle.fake_football.controller;
 
 import com.demuelle.fake_football.dto.Team;
 import com.demuelle.fake_football.repository.TeamRepository;
+import com.demuelle.fake_football.service.TeamService;
+import com.demuelle.fake_football.viewmodel.TeamWithMatches;
+import com.demuelle.fake_football.viewmodel.TeamWithoutMatches;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +17,15 @@ import java.util.List;
 @RequestMapping("/team")
 public class TeamController {
     @Autowired
-    private TeamRepository repo;
+    private TeamService service;
 
     @GetMapping
-    public List<Team> getAllTeams() {
-        return repo.findAll();
+    public List<TeamWithoutMatches> getAllTeams() {
+        return service.retrieveAllTeams();
     }
 
     @GetMapping("/{id}")
-    public Team getTeamById(@PathVariable Integer id) {
-        return repo.findById(id).orElse(null);
+    public TeamWithMatches getTeamById(@PathVariable Integer id) {
+        return service.retrieveTeam(id);
     }
 }

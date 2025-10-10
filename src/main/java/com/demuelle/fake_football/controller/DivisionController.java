@@ -1,9 +1,7 @@
 package com.demuelle.fake_football.controller;
 
-import com.demuelle.fake_football.dto.Conference;
-import com.demuelle.fake_football.dto.Division;
-import com.demuelle.fake_football.repository.ConferenceRepository;
-import com.demuelle.fake_football.repository.DivisionRepository;
+import com.demuelle.fake_football.domain.OutputConference;
+import com.demuelle.fake_football.domain.OutputDivision;
 import com.demuelle.fake_football.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +14,12 @@ public class DivisionController {
     private TeamService teamService;
 
     @GetMapping("/conference/{name}")
-    public Conference getConference(@PathVariable String name) {
-        return teamService.getConference(name);
+    public OutputConference getConference(@PathVariable String name) {
+        return teamService.getOutputConference(name);
     }
 
     @GetMapping("/division/{conferenceName}/{divisionName}")
-    public Division getDivision(@PathVariable String conferenceName, @PathVariable String divisionName) {
-        return teamService.getDivision(conferenceName, divisionName);
+    public OutputDivision getDivision(@PathVariable String conferenceName, @PathVariable String divisionName) {
+        return teamService.getOutputDivision(conferenceName, divisionName);
     }
 }

@@ -27,10 +27,10 @@ public class Team {
     @JoinColumn(name = "division_id")
     private Division _division;
     @OneToMany(mappedBy = "homeTeam")
-    List<Match> homeMatches;
+    private List<Match> homeMatches;
 
     @OneToMany(mappedBy = "visitingTeam")
-    List<Match> visitingMatches;
+    private List<Match> visitingMatches;
 
     public Team(String city, String nickname, Integer pointsScored, Integer pointsAllowed, Integer gamesPlayed, Division division) {
         this.city = city;
