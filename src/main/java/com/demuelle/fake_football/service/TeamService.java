@@ -48,7 +48,7 @@ public class TeamService {
                 .build();
     }
 
-    private static OutputDivision buildOutputDivision(Division division) {
+    public static OutputDivision buildOutputDivision(Division division) {
         return OutputDivision.builder()
                 .id(division.getId())
                 .name(division.getName())
@@ -68,12 +68,12 @@ public class TeamService {
         return teams.stream().map(TeamService::convertTeamToTeamWithoutMatches).collect(Collectors.toList());
     }
 
-    private static TeamWithoutMatches convertTeamToTeamWithoutMatches(Team team) {
+    static TeamWithoutMatches convertTeamToTeamWithoutMatches(Team team) {
         TeamWithoutMatches returnVal = TeamWithoutMatches.builder()
                 .id(team.getId())
                 .city(team.getCity())
                 .nickname(team.getNickname())
-                ._division(team.get_division())
+                .division(buildOutputDivision(team.get_division()))
                 .build();
 
         int pointsScored = 0;
@@ -114,7 +114,7 @@ public class TeamService {
         return returnVal;
     }
 
-    private static String generateRecordString(int wins, int losses, int ties) {
+    static String generateRecordString(int wins, int losses, int ties) {
         return wins + "-" + losses + (ties > 0 ? "-" + ties : "");
     }
 
