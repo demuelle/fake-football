@@ -1,10 +1,9 @@
 package com.demuelle.fake_football.controller;
 
 import com.demuelle.fake_football.domain.InputActualMatch;
-import com.demuelle.fake_football.service.RandomMatchService;
+import com.demuelle.fake_football.service.MatchService;
 import com.demuelle.fake_football.viewmodel.MatchViewModel;
 import com.demuelle.fake_football.viewmodel.RandomMatchesViewModel;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 public class MatchController {
     @Autowired
-    private RandomMatchService service;
+    private MatchService service;
 
     @GetMapping("/match")
     public RandomMatchesViewModel getMatchAndPredictions(

@@ -18,11 +18,6 @@ public class Team {
     private Integer id;
     private String city;
     private String nickname;
-    @Getter(AccessLevel.NONE)
-    private Integer pointsScored;
-    @Getter(AccessLevel.NONE)
-    private Integer pointsAllowed;
-    private Integer gamesPlayed;
     @ManyToOne
     @JoinColumn(name = "division_id")
     private Division _division;
@@ -32,12 +27,9 @@ public class Team {
     @OneToMany(mappedBy = "visitingTeam")
     private List<Match> visitingMatches;
 
-    public Team(String city, String nickname, Integer pointsScored, Integer pointsAllowed, Integer gamesPlayed, Division division) {
+    public Team(String city, String nickname, Division division) {
         this.city = city;
         this.nickname = nickname;
-        this.pointsScored = pointsScored;
-        this.pointsAllowed = pointsAllowed;
-        this.gamesPlayed = gamesPlayed;
         this._division = division;
     }
 
@@ -52,6 +44,29 @@ public class Team {
     public String getConference() {
         return this.get_division().get_conference().getName();
     }
-    public double getAveragePointsScored() { return (double) this.pointsScored/this.gamesPlayed; }
-    public double getAveragePointsAllowed() { return (double) this.pointsAllowed/this.gamesPlayed; }
+    public double getAveragePointsScored() { return (double) this.getPointsScored()/this.getGamesPlayed(); }
+    public double getAveragePointsAllowed() { return (double) this.getPointsAllowed()/this.getGamesPlayed(); }
+    public int getPointsScored() {
+        return (int) (this.getHomeMatches()
+                .stream()
+                .mapToDouble(Match::getHomeTeamScore)
+                .sum() +
+                this.getVisitingMatches()
+                        .stream()
+                        .mapToDouble(Match::getVisitingTeamScore)
+                        .sum());
+    }
+    public int getPointsAllowed() {
+        return (int) (this.getHomeMatches()
+                .stream()
+                .mapToDouble(Match::getVisitingTeamScore)
+                .sum() +
+                this.getVisitingMatches()
+                        .stream()
+                        .mapToDouble(Match::getHomeTeamScore)
+                        .sum());
+    }
+    public int getGamesPlayed() {
+        return this.getHomeMatches().size() + this.getVisitingMatches().size();
+    }
 }

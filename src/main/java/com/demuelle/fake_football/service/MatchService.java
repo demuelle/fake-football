@@ -14,6 +14,7 @@ import com.demuelle.fake_football.utils.MatchUtils;
 import com.demuelle.fake_football.utils.ParseUtils;
 import com.demuelle.fake_football.viewmodel.MatchViewModel;
 import com.demuelle.fake_football.viewmodel.RandomMatchesViewModel;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,8 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class RandomMatchService {
+public class MatchService {
     private final Random random = new Random();
-
 //    @Autowired
     private final TeamRepository teamRepository;
     private final ConferenceRepository conferenceRepository;
@@ -34,15 +34,16 @@ public class RandomMatchService {
     private final MatchRepository matchRepository;
 
     @Autowired
-    public RandomMatchService(TeamRepository teamRepository, ConferenceRepository conferenceRepository, DivisionRepository divisionRepository, MatchRepository matchRepository) {
+    public MatchService(TeamRepository teamRepository, ConferenceRepository conferenceRepository, DivisionRepository divisionRepository, MatchRepository matchRepository) {
         this.teamRepository = teamRepository;
         this.conferenceRepository = conferenceRepository;
         this.divisionRepository = divisionRepository;
         this.matchRepository = matchRepository;
-        
+
 //        seedData();
     }
 
+    @Transactional
     public void seedData() {
         Conference nfc = conferenceRepository.save(new Conference("NFC"));
         Conference afc = conferenceRepository.save(new Conference("AFC"));
@@ -56,38 +57,38 @@ public class RandomMatchService {
         Division afcEast = divisionRepository.save(new Division("East", afc));
         Division afcWest = divisionRepository.save(new Division("West", afc));
         
-        teamRepository.save(new Team("Buffalo", "Bills", 133, 90, 4, afcEast));
-        teamRepository.save(new Team("New England", "Patriots", 102, 81, 4, afcEast));
-        teamRepository.save(new Team("Miami", "Dolphins", 83, 118, 4, afcEast));
-        teamRepository.save(new Team("New York", "Jets", 90, 120, 4, afcEast));
-        teamRepository.save(new Team("Los Angeles", "Chargers", 88, 71, 4, afcWest));
-        teamRepository.save(new Team("Kansas City", "Chiefs", 97, 76, 4, afcWest));
-        teamRepository.save(new Team("Denver", "Broncos", 96, 67, 4, afcWest));
-        teamRepository.save(new Team("Las Vegas", "Raiders", 77, 99, 4, afcWest));
-        teamRepository.save(new Team("Pittsburgh", "Steelers", 96, 98, 4, afcNorth));
-        teamRepository.save(new Team("Cincinnati", "Bengals", 61, 119, 4, afcNorth));
-        teamRepository.save(new Team("Baltimore", "Ravens", 131, 133, 4, afcNorth));
-        teamRepository.save(new Team("Cleveland", "Browns", 56, 102, 4, afcNorth));
-        teamRepository.save(new Team("Indianapolis", "Colts", 123, 83, 4, afcSouth));
-        teamRepository.save(new Team("Jacksonville", "Jaguars", 96, 72, 4, afcSouth));
-        teamRepository.save(new Team("Houston", "Texans", 64, 51, 4, afcSouth));
-        teamRepository.save(new Team("Tennessee", "Titans", 51, 120, 4, afcSouth));
-        teamRepository.save(new Team("Philadelphia", "Eagles", 108, 88, 4, nfcEast));
-        teamRepository.save(new Team("Washington", "Commanders", 107, 91, 4, nfcEast));
-        teamRepository.save(new Team("Dallas", "Cowboys", 114, 132, 4, nfcEast));
-        teamRepository.save(new Team("New York", "Giants", 73, 101, 4, nfcEast));
-        teamRepository.save(new Team("San Francisco", "49ers", 80, 75, 4, nfcWest));
-        teamRepository.save(new Team("Seattle", "Seahawks", 111, 67, 4, nfcWest));
-        teamRepository.save(new Team("Los Angeles", "Rams", 100, 81, 4, nfcWest));
-        teamRepository.save(new Team("Arizona", "Cardinals", 82, 74, 4, nfcWest));
-        teamRepository.save(new Team("Detroit", "Lions", 137, 88, 4, nfcNorth));
-        teamRepository.save(new Team("Green Bay", "Packers", 104, 84, 4, nfcNorth));
-        teamRepository.save(new Team("Minnesota", "Vikings", 102, 80, 4, nfcNorth));
-        teamRepository.save(new Team("Chicago", "Bears", 101, 117, 4, nfcNorth));
-        teamRepository.save(new Team("Tampa Bay", "Buccaneers", 97, 97, 4, nfcSouth));
-        teamRepository.save(new Team("Atlanta", "Falcons", 76, 86, 4, nfcSouth));
-        teamRepository.save(new Team("Carolina", "Panthers", 75, 95, 4, nfcSouth));
-        teamRepository.save(new Team("New Orleans", "Saints", 66, 121, 4, nfcSouth));
+        teamRepository.save(new Team("Buffalo", "Bills", afcEast));
+        teamRepository.save(new Team("New England", "Patriots",afcEast));
+        teamRepository.save(new Team("Miami", "Dolphins", afcEast));
+        teamRepository.save(new Team("New York", "Jets", afcEast));
+        teamRepository.save(new Team("Los Angeles", "Chargers", afcWest));
+        teamRepository.save(new Team("Kansas City", "Chiefs", afcWest));
+        teamRepository.save(new Team("Denver", "Broncos", afcWest));
+        teamRepository.save(new Team("Las Vegas", "Raiders", afcWest));
+        teamRepository.save(new Team("Pittsburgh", "Steelers", afcNorth));
+        teamRepository.save(new Team("Cincinnati", "Bengals", afcNorth));
+        teamRepository.save(new Team("Baltimore", "Ravens", afcNorth));
+        teamRepository.save(new Team("Cleveland", "Browns", afcNorth));
+        teamRepository.save(new Team("Indianapolis", "Colts", afcSouth));
+        teamRepository.save(new Team("Jacksonville", "Jaguars", afcSouth));
+        teamRepository.save(new Team("Houston", "Texans", afcSouth));
+        teamRepository.save(new Team("Tennessee", "Titans", afcSouth));
+        teamRepository.save(new Team("Philadelphia", "Eagles", nfcEast));
+        teamRepository.save(new Team("Washington", "Commanders", nfcEast));
+        teamRepository.save(new Team("Dallas", "Cowboys", nfcEast));
+        teamRepository.save(new Team("New York", "Giants", nfcEast));
+        teamRepository.save(new Team("San Francisco", "49ers", nfcWest));
+        teamRepository.save(new Team("Seattle", "Seahawks", nfcWest));
+        teamRepository.save(new Team("Los Angeles", "Rams", nfcWest));
+        teamRepository.save(new Team("Arizona", "Cardinals", nfcWest));
+        teamRepository.save(new Team("Detroit", "Lions", nfcNorth));
+        teamRepository.save(new Team("Green Bay", "Packers", nfcNorth));
+        teamRepository.save(new Team("Minnesota", "Vikings", nfcNorth));
+        teamRepository.save(new Team("Chicago", "Bears", nfcNorth));
+        teamRepository.save(new Team("Tampa Bay", "Buccaneers", nfcSouth));
+        teamRepository.save(new Team("Atlanta", "Falcons", nfcSouth));
+        teamRepository.save(new Team("Carolina", "Panthers", nfcSouth));
+        teamRepository.save(new Team("New Orleans", "Saints", nfcSouth));
 
 //        Match match = Match.builder()
 //                .homeTeam(eagles)
@@ -151,7 +152,7 @@ public class RandomMatchService {
         return teamRepository.findAll();
     }
 
-    private MatchViewModel getAverageMatch(Team visitorTeam, Team homeTeam, boolean neutralSite) {
+    MatchViewModel getAverageMatch(Team visitorTeam, Team homeTeam, boolean neutralSite) {
         double homeTeamScore = (homeTeam.getAveragePointsScored() + visitorTeam.getAveragePointsAllowed()) / 2;
         double visitorTeamScore = (visitorTeam.getAveragePointsScored() + homeTeam.getAveragePointsAllowed()) / 2;
         if (!neutralSite) {
@@ -186,8 +187,8 @@ public class RandomMatchService {
     private MatchViewModel getRandomMatch(Team visitorTeam, Team homeTeam, boolean neutralSite, int rolls) {
         if (rolls == 0) return getAverageMatch(visitorTeam, homeTeam, neutralSite);
         MatchViewModel returnVal = getAverageMatch(visitorTeam, homeTeam,true);
-        double homeScore  = generateRandomNormalScore(returnVal.getHomeTeamScore(), rolls);
-        double visitorScore = generateRandomNormalScore(returnVal.getVisitingTeamScore(), rolls);
+        double homeScore  = generateRandomNormalScore(returnVal.getHomeTeamScore(), rolls, this.random);
+        double visitorScore = generateRandomNormalScore(returnVal.getVisitingTeamScore(), rolls, this.random);
         if (!neutralSite) {
             homeScore += 1.5;
             visitorScore -= 1.5;
@@ -200,19 +201,19 @@ public class RandomMatchService {
         return returnVal;
     }
 
-    private double generateRandomNormalScore(double median, int tosses) {
-        double maxRandom = median * 2/tosses;
+    double generateRandomNormalScore(double median, int tosses, Random random) {
+        double maxRandom = median * 2/tosses; // 30 * 2/4 = 15
         double returnVal = 0;
         for (int i = 0; i < tosses; i++) {
             double thisDouble = random.nextDouble();
-            returnVal += random.nextDouble() * maxRandom;
+            returnVal += random.nextDouble() * maxRandom; // 2.8 *4 * 15
         }
         return returnVal;
     }
 
     public MatchViewModel createMatch(InputActualMatch inputMatch) {
-        Team homeTeam = teamRepository.findByNickname(inputMatch.getHomeTeamNickname()).get(0);
-        Team visitingTeam = teamRepository.findByNickname(inputMatch.getVisitingTeamNickname()).get(0);
+        Team homeTeam = this.findByNickname(inputMatch.getHomeTeamNickname());
+        Team visitingTeam = this.findByNickname(inputMatch.getVisitingTeamNickname());
         Match match = Match.builder()
                 .homeTeam(homeTeam)
                 .visitingTeam(visitingTeam)
@@ -223,10 +224,11 @@ public class RandomMatchService {
                 .week(inputMatch.getWeek())
                 .kickoffDateTime(inputMatch.getKickoffDateTime())
                 .build();
-        matchRepository.save(match);
+        match = matchRepository.save(match);
         return MatchUtils.convertMatchToViewModel(match);
     }
 
+    @Transactional
     public int bulkCreateMatches(List<List<String>> matches) {
         for (List<String> matchList : matches) {
             this.createMatch(parseMatchFromStringList(matchList));

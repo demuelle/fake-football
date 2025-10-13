@@ -72,15 +72,15 @@ class TeamServiceTest {
                 .name("FFC")
                 .build();
 
-        team1 = new Team("city1", "nickname1", 101, 232, 4, null);
+        team1 = new Team("city1", "nickname1", null);
         team1.setId(111);
-        team2 = new Team("city2", "nickname2", 202, 353, 4, null);
+        team2 = new Team("city2", "nickname2", null);
         team2.setId(222);
-        team3 = new Team("city3", "nickname3", 303, 464, 4, null);
+        team3 = new Team("city3", "nickname3", null);
         team3.setId(333);
-        team4 = new Team("city4", "nickname4", 404, 121, 4, null);
+        team4 = new Team("city4", "nickname4", null);
         team4.setId(444);
-        Team team5 = new Team("city5", "nickname5", 505, 424, 4, null);
+        Team team5 = new Team("city5", "nickname5", null);
         team5.setId(555);
 
         exampleDivision = new Division(11, "division11", exampleConference, Arrays.asList(team1, team2, team3));
