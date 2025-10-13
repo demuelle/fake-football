@@ -122,7 +122,7 @@ public class RandomMatchService {
 //        }
     }
 
-    private Team findByNickname(String nickname) {
+    Team findByNickname(String nickname) {
         try {
             return teamRepository.findByNickname(nickname).get(0);
         } catch (IndexOutOfBoundsException ex) {
