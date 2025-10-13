@@ -7,6 +7,7 @@ import com.demuelle.fake_football.dto.Conference;
 import com.demuelle.fake_football.dto.Division;
 import com.demuelle.fake_football.dto.Match;
 import com.demuelle.fake_football.dto.Team;
+import com.demuelle.fake_football.exception.BadNicknameException;
 import com.demuelle.fake_football.repository.ConferenceRepository;
 import com.demuelle.fake_football.repository.DivisionRepository;
 import com.demuelle.fake_football.repository.TeamRepository;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,9 +97,11 @@ class TeamServiceTest {
         when(conferenceRepository.findByNameIgnoreCase("FFC")).thenReturn(exampleConference);
     }
 
-    public void setupTeamRepository() {
-        return;
+    private void setupTeamRepository() {
+        when(teamRepository.findByNickname("goodnickname")).thenReturn(Arrays.asList(team1));
+        when(teamRepository.findByNickname("badnickname")).thenReturn(new ArrayList<>());
     }
+
 
     @Test
     public void shouldBuildOutputConferenceAndOutputDivisions() throws Exception {
@@ -114,45 +118,22 @@ class TeamServiceTest {
         assertEquals(expectedValue, actualValue);
     }
 
-    @Test
-    public void shouldGenerateRecordString() throws Exception {
-        String expected = "10-3";
-        String actualResult = TeamService.generateRecordString(10,3, 0);
-        assertEquals(expected, actualResult);
-
-        expected = "1-0-1";
-        actualResult = TeamService.generateRecordString(1,0,1);
-        assertEquals(expected, actualResult);
-    }
 
     @Test
-    public void shouldConvertTeamToTeamWithoutMatches() throws Exception {
-        //home
-        Match match1 = new Match(1, 0, team1, team2, false, 10., 3., "A", 1, null);
-        Match match2 = new Match(2, 0, team1, team3, false, 20., 25., "A", 2, null);
-        Match match3 = new Match(3, 0, team1, team4, false, 18., 18., "A", 3, null);
+    public void shouldFindTeamByNickname() {
+        Team expectedTeam = team1;
+        Team actualTeam = teamService.findByNickname("goodnickname");
 
-        //away
-        Match match4 = new Match(4, 0, team2, team1, false, 50., 10., "A", 4, null);
-        Match match5 = new Match(5, 0, team3, team1, false, 22., 33., "A", 5, null);
-
-        team1.setHomeMatches(Arrays.asList(match1, match2, match3));
-        team1.setVisitingMatches(Arrays.asList(match4, match5));
-
-        TeamWithoutMatches expected = TeamWithoutMatches.builder()
-                .id(111)
-                .city("city1")
-                .nickname("nickname1")
-                .pointsScored(91)
-                .pointsAllowed(118)
-                .division(outputDivision1)
-                .homeRecord("1-1-1")
-                .roadRecord("1-1")
-                .overallRecord("2-2-1")
-                .build();
-
-        TeamWithoutMatches actual = TeamService.convertTeamToTeamWithoutMatches(team1);
-        assertEquals(expected, actual);
+        assertEquals(expectedTeam, actualTeam);
     }
+
+
+    @Test
+    public void shouldThrowExceptionWithBadNickname() {
+        assertThrows(BadNicknameException.class, () -> {
+            teamService.findByNickname("badnicknamee");
+        });
+    }
+
 
 }

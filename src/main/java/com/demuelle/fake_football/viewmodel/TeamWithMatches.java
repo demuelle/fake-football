@@ -1,5 +1,6 @@
 package com.demuelle.fake_football.viewmodel;
 
+import com.demuelle.fake_football.domain.OutputDivision;
 import com.demuelle.fake_football.dto.Division;
 import com.demuelle.fake_football.dto.Match;
 import jakarta.persistence.OneToMany;
@@ -20,7 +21,7 @@ public class TeamWithMatches {
     private String nickname;
     private Integer pointsScored;
     private Integer pointsAllowed;
-    private Division _division;
+    private OutputDivision _division;
     private String homeRecord;
     private String roadRecord;
     private String overallRecord;

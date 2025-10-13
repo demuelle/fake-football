@@ -25,16 +25,10 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class MatchServiceTest {
     @MockitoBean
-    ConferenceRepository conferenceRepository;
-
-    @MockitoBean
-    DivisionRepository divisionRepository;
-
-    @MockitoBean
     MatchRepository matchRepository;
 
     @MockitoBean
-    TeamRepository teamRepository;
+    TeamService teamService;
 
     Random testRandom;
 
@@ -47,28 +41,9 @@ class MatchServiceTest {
     public void setup() {
         setupData();
 
-        setupConferenceRepository();
-        setupDivisionRepository();
-        setupMatchRepository();
-        setupTeamRepository();
-
-        matchService = new MatchService(teamRepository, conferenceRepository, divisionRepository, matchRepository);
+        matchService = new MatchService(matchRepository, teamService);
     }
 
-    @Test
-    public void shouldFindTeamByNickname() {
-        Team expectedTeam = team1;
-        Team actualTeam = matchService.findByNickname("goodnickname");
-
-        assertEquals(expectedTeam, actualTeam);
-    }
-
-    @Test
-    public void shouldThrowExceptionWithBadNickname() {
-        assertThrows(BadNicknameException.class, () -> {
-            matchService.findByNickname("badnicknamee");
-        });
-    }
 
     @Test
     public void shouldGenerateAverageMatchAtNonNeutralSite() {
@@ -139,17 +114,6 @@ class MatchServiceTest {
 
         team1 = new Team(111, "City1", "Nickname1", null, team1Home, team1Away); //100, 200, 5
         team2 = new Team(222, "City2", "Nickname2", null, team2Home, team2Away); //250, 120, 4
-    }
-
-    private void setupConferenceRepository() {}
-
-    private void setupDivisionRepository() {}
-
-    private void setupMatchRepository() {}
-
-    private void setupTeamRepository() {
-        when(teamRepository.findByNickname("goodnickname")).thenReturn(Arrays.asList(team1));
-        when(teamRepository.findByNickname("badnickname")).thenReturn(new ArrayList<>());
     }
 
 }

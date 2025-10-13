@@ -6,10 +6,7 @@ import com.demuelle.fake_football.service.TeamService;
 import com.demuelle.fake_football.viewmodel.TeamWithMatches;
 import com.demuelle.fake_football.viewmodel.TeamWithoutMatches;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,10 @@ public class TeamController {
     @GetMapping("/{id}")
     public TeamWithMatches getTeamById(@PathVariable Integer id) {
         return service.retrieveTeam(id);
+    }
+
+    @GetMapping("/lookup")
+    public TeamWithMatches getTeamByPartialNickname(@RequestParam(required = false) String nickname) {
+        return service.findTeamWithMatchesByNickname(nickname);
     }
 }
