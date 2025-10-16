@@ -16,11 +16,11 @@ public class MatchController {
 
     @GetMapping("/match")
     public RandomMatchesViewModel getMatchAndPredictions(
-            @RequestParam String visitorId,
-            @RequestParam String homeId,
+            @RequestParam String visitorNickname,
+            @RequestParam String homeNickname,
             @RequestParam(required=false, defaultValue = "false") boolean neutralSite,
             @RequestParam String rolls) {
-        return service.generatePredictions(visitorId, homeId, neutralSite, rolls);
+        return service.generatePredictions(visitorNickname, homeNickname, neutralSite, rolls);
     }
 
     @PostMapping("/match")
