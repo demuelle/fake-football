@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+//@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 public class MatchControllerAdvice {
     @ExceptionHandler(value = {BadNicknameException.class})
     public ResponseEntity<String> badNicknameError(BadNicknameException e) {
