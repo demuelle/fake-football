@@ -13,11 +13,11 @@ import static com.demuelle.fake_football.service.TeamService.buildOutputDivision
 public class TeamUtils {
     public static TeamWithMatches convertTeamToTeamWithMatches(Team team) {
         TeamWithoutMatches twm = TeamUtils.convertTeamToTeamWithoutMatches(team);
-        TeamWithMatches returnVal = TeamWithMatches.builder()
+        TeamWithMatches returnVal = TeamWithMatches.teamWithMatchesBuilder()
                 .id(team.getId())
                 .city(team.getCity())
                 .nickname(team.getNickname())
-                ._division(buildOutputDivision(team.get_division()))
+                .division(buildOutputDivision(team.get_division()))
                 .pointsScored(twm.getPointsScored())
                 .pointsAllowed(twm.getPointsAllowed())
                 .homeRecord(twm.getHomeRecord())

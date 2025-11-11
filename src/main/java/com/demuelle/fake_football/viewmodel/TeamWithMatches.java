@@ -1,10 +1,5 @@
 package com.demuelle.fake_football.viewmodel;
 
-import com.demuelle.fake_football.domain.OutputDivision;
-import com.demuelle.fake_football.dto.Division;
-import com.demuelle.fake_football.dto.Match;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,18 +8,14 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class TeamWithMatches {
-    private Integer id;
-    private String city;
-    private String nickname;
-    private Integer pointsScored;
-    private Integer pointsAllowed;
-    private OutputDivision _division;
-    private String homeRecord;
-    private String roadRecord;
-    private String overallRecord;
+public class TeamWithMatches extends TeamWithoutMatches {
     private List<MatchViewModel> homeMatches;
     private List<MatchViewModel> visitingMatches;
+
+    @Builder(builderMethodName = "teamWithMatchesBuilder")
+    public TeamWithMatches(Integer id, String city, String nickname, Integer pointsScored, Integer pointsAllowed, OutputDivision division, String homeRecord, String roadRecord, String overallRecord, List<MatchViewModel> homeMatches, List<MatchViewModel> visitingMatches) {
+        super(id, city, nickname, pointsScored, pointsAllowed, division, homeRecord, roadRecord, overallRecord);
+        this.homeMatches = homeMatches;
+        this.visitingMatches = visitingMatches;
+    }
 }

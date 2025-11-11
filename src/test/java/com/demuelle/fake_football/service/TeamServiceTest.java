@@ -1,17 +1,15 @@
 package com.demuelle.fake_football.service;
 
-import com.demuelle.fake_football.domain.OutputConference;
-import com.demuelle.fake_football.domain.OutputDivision;
-import com.demuelle.fake_football.domain.OutputTeam;
+import com.demuelle.fake_football.viewmodel.OutputConference;
+import com.demuelle.fake_football.viewmodel.OutputDivision;
+import com.demuelle.fake_football.viewmodel.OutputTeam;
 import com.demuelle.fake_football.dto.Conference;
 import com.demuelle.fake_football.dto.Division;
-import com.demuelle.fake_football.dto.Match;
 import com.demuelle.fake_football.dto.Team;
 import com.demuelle.fake_football.exception.BadNicknameException;
 import com.demuelle.fake_football.repository.ConferenceRepository;
 import com.demuelle.fake_football.repository.DivisionRepository;
 import com.demuelle.fake_football.repository.TeamRepository;
-import com.demuelle.fake_football.viewmodel.TeamWithoutMatches;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

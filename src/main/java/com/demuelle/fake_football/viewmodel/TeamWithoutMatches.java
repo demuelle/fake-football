@@ -1,17 +1,9 @@
 package com.demuelle.fake_football.viewmodel;
 
-import com.demuelle.fake_football.domain.OutputDivision;
-import com.demuelle.fake_football.dto.Division;
-import com.demuelle.fake_football.dto.Match;
-import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class TeamWithoutMatches {
     private Integer id;
     private String city;
@@ -22,4 +14,17 @@ public class TeamWithoutMatches {
     private String homeRecord;
     private String roadRecord;
     private String overallRecord;
+
+    @Builder
+    public TeamWithoutMatches(Integer id, String city, String nickname, Integer pointsScored, Integer pointsAllowed, OutputDivision division, String homeRecord, String roadRecord, String overallRecord) {
+        this.id = id;
+        this.city = city;
+        this.nickname = nickname;
+        this.pointsScored = pointsScored;
+        this.pointsAllowed = pointsAllowed;
+        this.division = division;
+        this.homeRecord = homeRecord;
+        this.roadRecord = roadRecord;
+        this.overallRecord = overallRecord;
+    }
 }

@@ -1,4 +1,4 @@
-package com.demuelle.fake_football.domain;
+package com.demuelle.fake_football.viewmodel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

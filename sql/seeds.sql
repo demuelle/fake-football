@@ -1,0 +1,47 @@
+insert into conference (id, name) values
+((select nextval('conference_seq')), 'NFC'),
+((select nextval('conference_seq')), 'AFC');
+
+insert into division (id, name, conference_id) values
+((select nextval('division_seq')), 'North', (select id from conference where name='NFC')),
+((select nextval('division_seq')), 'South', (select id from conference where name='NFC')),
+((select nextval('division_seq')), 'East', (select id from conference where name='NFC')),
+((select nextval('division_seq')), 'West', (select id from conference where name='NFC')),
+((select nextval('division_seq')), 'North', (select id from conference where name='AFC')),
+((select nextval('division_seq')), 'South', (select id from conference where name='AFC')),
+((select nextval('division_seq')), 'East', (select id from conference where name='AFC')),
+((select nextval('division_seq')), 'West', (select id from conference where name='AFC'));
+
+insert into team (id, city, nickname, division_id) values
+((select nextval('team_seq')), 'Buffalo', 'Bills', (select id from division where name='East' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'New England', 'Patriots', (select id from division where name='East' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Miami', 'Dolphins', (select id from division where name='East' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'New York', 'Jets', (select id from division where name='East' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Los Angeles', 'Chargers', (select id from division where name='West' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Kansas City', 'Chiefs', (select id from division where name='West' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Denver', 'Broncos', (select id from division where name='West' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Las Vegas', 'Raiders', (select id from division where name='West' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Pittsburgh', 'Steelers', (select id from division where name='North' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Cincinnati', 'Bengals', (select id from division where name='North' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Baltimore', 'Ravens', (select id from division where name='North' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Cleveland', 'Browns', (select id from division where name='North' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Indianapolis', 'Colts', (select id from division where name='South' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Jacksonville', 'Jaguars', (select id from division where name='South' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Houston', 'Texans', (select id from division where name='South' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Tennessee', 'Titans', (select id from division where name='South' and conference_id=(select id from conference where name='AFC'))),
+((select nextval('team_seq')), 'Philadelphia', 'Eagles', (select id from division where name='East' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Washington', 'Commanders', (select id from division where name='East' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Dallas', 'Cowboys', (select id from division where name='East' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'New York', 'Giants', (select id from division where name='East' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'San Francisco', '49ers', (select id from division where name='West' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Seattle', 'Seahawks', (select id from division where name='West' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Los Angeles', 'Rams', (select id from division where name='West' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Arizona', 'Cardinals', (select id from division where name='West' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Detroit', 'Lions', (select id from division where name='North' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Green Bay', 'Packers', (select id from division where name='North' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Minnesota', 'Vikings', (select id from division where name='North' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Chicago', 'Bears', (select id from division where name='North' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Tampa Bay', 'Buccaneers', (select id from division where name='South' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Atlanta', 'Falcons', (select id from division where name='South' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'Carolina', 'Panthers', (select id from division where name='South' and conference_id=(select id from conference where name='NFC'))),
+((select nextval('team_seq')), 'New Orleans', 'Saints', (select id from division where name='South' and conference_id=(select id from conference where name='NFC')));

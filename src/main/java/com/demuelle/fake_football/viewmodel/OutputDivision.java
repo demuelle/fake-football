@@ -1,4 +1,4 @@
-package com.demuelle.fake_football.domain;
+package com.demuelle.fake_football.viewmodel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Builder
-public class OutputConference {
+public class OutputDivision {
     private Integer id;
     private String name;
-    private List<OutputDivision> divisions;
+    private String conference;
+    private List<OutputTeam> teams;
 }

@@ -1,7 +1,7 @@
 package com.demuelle.fake_football.controller;
 
-import com.demuelle.fake_football.domain.OutputConference;
-import com.demuelle.fake_football.domain.OutputDivision;
+import com.demuelle.fake_football.viewmodel.OutputConference;
+import com.demuelle.fake_football.viewmodel.OutputDivision;
 import com.demuelle.fake_football.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

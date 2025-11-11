@@ -1,7 +1,7 @@
 package com.demuelle.fake_football.utils;
 
-import com.demuelle.fake_football.domain.OutputDivision;
-import com.demuelle.fake_football.domain.OutputTeam;
+import com.demuelle.fake_football.viewmodel.OutputDivision;
+import com.demuelle.fake_football.viewmodel.OutputTeam;
 import com.demuelle.fake_football.dto.Conference;
 import com.demuelle.fake_football.dto.Division;
 import com.demuelle.fake_football.dto.Match;
