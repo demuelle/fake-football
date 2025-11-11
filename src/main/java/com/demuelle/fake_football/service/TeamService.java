@@ -18,6 +18,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -167,5 +168,11 @@ public class TeamService {
         } catch (IndexOutOfBoundsException ex) {
             throw new BadNicknameException(nickname);
         }
+    }
+
+    public List<String> getResultsByNickname(String nickname) {
+        Team team = this.findByNickname(nickname);
+        return TeamUtils.buildMatchListOutput(team);
+
     }
 }

@@ -30,4 +30,9 @@ public class TeamController {
     public TeamWithMatches getTeamByPartialNickname(@RequestParam(required = false) String nickname) {
         return service.findTeamWithMatchesByNickname(nickname);
     }
+
+    @GetMapping("/results")
+    public List<String> getResults(@RequestParam(required = false) String nickname) {
+        return service.getResultsByNickname(nickname);
+    }
 }

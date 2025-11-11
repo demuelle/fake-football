@@ -6,6 +6,8 @@ import com.demuelle.fake_football.service.TeamService;
 import com.demuelle.fake_football.viewmodel.TeamWithMatches;
 import com.demuelle.fake_football.viewmodel.TeamWithoutMatches;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.demuelle.fake_football.service.TeamService.buildOutputDivision;
@@ -82,4 +84,10 @@ public class TeamUtils {
         return wins + "-" + losses + (ties > 0 ? "-" + ties : "");
     }
 
+    public static List<String> buildMatchListOutput(Team team) {
+        List<Match> allMatches = new ArrayList<>(team.getHomeMatches());
+        allMatches.addAll(team.getVisitingMatches());
+        allMatches.sort((a,b) -> a.getWeek() - b.getWeek());
+        return allMatches.stream().map(Match::conciseDescribe).collect(Collectors.toList());
+    }
 }

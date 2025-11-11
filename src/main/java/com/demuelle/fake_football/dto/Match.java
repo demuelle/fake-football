@@ -36,6 +36,24 @@ public class Match {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    public static String conciseDescribe(Match m) {
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("Week ")
+                .append(m.getWeek())
+                .append("  ")
+                .append(m.getVisitingTeam().getNickname())
+                .append(" ")
+                .append(m.getVisitingTeamScore().intValue())
+                .append(", ")
+                .append(m.getHomeTeam().getNickname())
+                .append(" ")
+                .append(m.getHomeTeamScore().intValue());
+        if (m.isNeutralSite())
+            sb.append(" (neutral site)");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "Match{" +
